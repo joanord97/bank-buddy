@@ -24,6 +24,7 @@ const AccountsPage = async () => {
             minute: "numeric",
           };
 
+          // @ts-ignore
           const lastRefreshedDate = Intl.DateTimeFormat("no-NO", options)
             .format(new Date(item.dates.lastRefreshed.toString()))
             .split(",")
