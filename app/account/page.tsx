@@ -32,6 +32,7 @@ const AccountsPage = async () => {
 
           return (
             <LongCard
+              id={item.id}
               title={item.name}
               subTitle={item.type}
               data={
