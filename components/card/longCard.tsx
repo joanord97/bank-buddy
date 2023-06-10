@@ -13,7 +13,7 @@ const LongCard = (props: LongCardType) => {
   return (
     <div className="w-full px-4 py-2">
       <Link
-        href="/"
+        href={"account/" + props.id}
         className="card w-full bg-neutral text-neutral-content hover:bg-neutral-focus grid grid-cols-2"
       >
         <div className="card-body items-start text-center ">

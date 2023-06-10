@@ -21,10 +21,32 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  // splits on " " and takes the token eg. Bearer <JWT Token> returns <JWT Token>
-  const accessToken = authorization.split(" ")[1];
+  const { searchParams } = new URL(request.url);
+  const id = searchParams.get("id");
 
-  const response = NextResponse.json("Ok");
+  const accountsResponse = await fetch(
+    process.env.TINK_BASE_URL + `/data/v2/transactions?accountIdIn=${id}`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: authorization,
+      },
+    }
+  );
 
-  return response;
+  if (!accountsResponse.ok) {
+    console.error("!accountsResponse.ok");
+    console.error(accountsResponse.status, " : ", accountsResponse.statusText);
+    const body = await accountsResponse.json();
+    console.error("error body", body);
+
+    return NextResponse.json(
+      { error: accountsResponse.statusText },
+      { status: accountsResponse.status }
+    );
+  }
+
+  const accounts = await accountsResponse.json();
+
+  return NextResponse.json(accounts);
 }
