@@ -33,7 +33,7 @@ const Page = async ({ searchParams }: PageType) => {
 
   useEffect(() => {
     getToken(code).then(() => {
-      if (searchParams.state) {
+      if (searchParams.state && searchParams.state !== "null") {
         router.push(searchParams.state);
       } else {
         router.push("/");
